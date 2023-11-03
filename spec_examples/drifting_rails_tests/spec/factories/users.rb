@@ -8,6 +8,10 @@ FactoryBot.define do
     # trait :inactive_user do
     #   active false
     # end
+
+    # trait :with_friends do
+    #  firends { create_lists(:user, 3)}
+    # end
   end
 
   factory :random_user, class: User do
