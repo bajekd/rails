@@ -1,0 +1,21 @@
+<nav class="mb-8 flex items-center justify-between">
+  <% if user_signed_in? %>
+    <%= link_to "Edit Password", edit_password_path %>
+    <%= button_to "Log Out", session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Sign Up", new_registration_path %>
+    <%= link_to "Log In", new_session_path %>
+  <% end %>
+
+  <%= select_tag nil, options_for_select(navigation_items, request.path), class: "sm:hidden", onchange: "Turbo.visit(this.selectedOptions[0].value)" %>
+
+  <ul class="hidden sm:block">
+    <% navigation_items.each do |text, path| %>
+      <li><%= link_to text, path %></li>
+    <% end %>
+  </ul>
+
+  <%= cache 'current_time', expires_in: 1.hour do %>
+    <%= Time.current %>
+  <% end %>
+</nav>

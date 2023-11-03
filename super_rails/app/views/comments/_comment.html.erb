@@ -1,0 +1,13 @@
+<div class="comment">
+  <% if comment.deleted_at.present? %>
+    Comment has been deleted
+  <% else %>
+    <%= comment.created_at %>
+    <%= markdown(comment.body) %>
+    <%= link_to comment.user.slug, comment.user %>
+    <%= link_to 'Delete comment', [@commentable, comment], method: :delete %>
+  <% end %>
+  <%= link_to 'Reply', new_comment_comment_path(comment) %>
+  <br>
+  <%= render comment.comments %>
+</div>

@@ -1,0 +1,8 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key.to_s == 'notice' ? 'primary' : 'info' %> alert-dismissible fade show" role="alert">
+    <%= value %>
+    <a data-dismiss="alert" href="#">
+      <i class="fa fa-times"></i>
+    </a>
+  </div>
+<% end %>

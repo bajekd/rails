@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+draft:
+  title: Draft Post
+  body: This is the draft blog post.
+  published_at: null
+
+published:
+  title: Published Post
+  body: This is the published blog post.
+  published_at: <%= 1.year.ago %>
+
+scheduled:
+  title: Scheduled Post
+  body: This is the scheduled blog post.
+  published_at: <%= 1.year.from_now %>

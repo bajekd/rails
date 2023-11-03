@@ -1,0 +1,52 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div class="text-danger">
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field" data-controller="character-counter">
+    <%= form.label :title %>
+    <%= form.text_field :title,
+        pattern: ".{#{Post::MIN_TITLE_LENGTH},#{Post::MAX_TITLE_LENGTH}}",
+        title: "Title should have between #{Post::MIN_TITLE_LENGTH} and #{Post::MAX_TITLE_LENGTH} characters",
+        style: "width: 100%",
+        data: { character_counter_target: 'input' }
+    %>
+    <strong data-character-counter-target="counter"></strong>/<%= Post::MAX_TITLE_LENGTH %>
+  </div>
+  <br>
+  <div class="field" data-controller="character-counter">
+    <%= form.label :description %>
+    <%= form.text_field :description,
+        style: "width: 100%",
+        data: { character_counter_target: 'input' },
+        maxlength: Post::MAX_DESCRIPTION_LENGTH
+    %>
+    <strong data-character-counter-target="counter"></strong>/<%= Post::MAX_DESCRIPTION_LENGTH %> characters
+  </div>
+  <br>
+  <div class="field" data-controller="character-counter">
+    <%= form.label :body %>
+    <%= form.text_area :body,
+        style: "width: 100%",
+        rows: 8,
+        data: { controller: 'textarea-autogrow', character_counter_target: 'input' },
+        maxlength: Post::MAX_BODY_LENGTH,
+        placeholder: "Use Markdown for formatting"
+    %>
+    <strong data-character-counter-target="counter"></strong>/<%= Post::MAX_BODY_LENGTH %> characters
+  </div>
+  <br>
+  <div>
+    <%= form.label :premium %>
+    <%= form.check_box :premium %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

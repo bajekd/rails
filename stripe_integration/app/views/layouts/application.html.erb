@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>StripeIntegration</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <% if user_signed_in? %>
+      <%= link_to "Products", products_path %>
+      <%= link_to "Posts", posts_path %>
+      <%= link_to current_user.email, edit_user_registration_path %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path %>
+      <%= link_to "Register", new_user_registration_path %>
+
+      <br>
+      Plan: <%= current_user.plan%>
+      <br>
+      Subscription status: <%= current_user.subscription_status %>
+
+    <% end %>
+
+    <hr>
+
+    <h1>Shopping Cart</h1>
+    <% @cart.each do |product| %>
+      <%= product %>
+      <br>
+    <% end %>
+
+    <% if session[:cart].present? %>
+      <%= @cart.collect { |item| item.to_builder.attributes! } %>
+      <%= button_to "Buy now", checkout_create_path, remote: true, data: { disable_with: "Validating..." } %>
+    <% end %>
+
+    <hr>
+
+    <%= yield %>
+  </body>
+</html>

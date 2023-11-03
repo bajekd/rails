@@ -1,0 +1,12 @@
+<h1>Success</h1>
+<hr>
+Checkout status: <%= @session_with_expand.payment_status %>
+<br>
+Amount paid: <%= @session_with_expand.amount_total/100.to_f %> <%= @session_with_expand.currency.upcase %>
+
+<br>
+
+<% @products.each do |product| %>
+  <%= product %>
+  <br>
+<% end %>

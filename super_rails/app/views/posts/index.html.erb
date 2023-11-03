@@ -1,0 +1,33 @@
+<h1>Total Posts: <%= @pagy.count %></h1>
+<small>Posts Per Site: <%= @posts.length %></small>
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+<br>
+<p>
+  <%= sort_link(@q, :created_at, default_order: :desc) do %>
+    <strong class="text-secondary">Latest</strong>
+  <% end %>
+  <%= sort_link(@q, :cached_votes_score, default_order: :desc) do %>
+    <strong class="text-secondary">Top Rated</strong>
+  <% end %>
+</p>
+<%= search_form_for @q do |f| %>
+  <%= f.label :title %>
+  <%= f.search_field :title_cont %>
+  <%= f.select :premium_eq, [['Premium', true], ['Free', false]], include_blank: 'Type' %>
+  <%= f.collection_select :user_name_cont, User.joins(@post).distinct, :name, :name, include_blank: 'Author' %>
+  <%= f.submit %>
+<% end %>
+<% if params[:q].present? %>
+  <%= link_to posts_path do %>
+    <i class="fa fa-redo"></i>
+  <% end %>
+<% end %>
+<hr>
+<%= render @posts %>
+<!--
+  LONGER VERSION:
+  <% @posts.each do |post| %>
+    <%= render 'posts/post', post: post %>
+    <hr>
+  <% end %>
+-->

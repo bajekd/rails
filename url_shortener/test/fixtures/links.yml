@@ -1,0 +1,24 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+anonymous:
+  url: https://demagog.org.pl/
+  title: Demagog
+  description: Fact-checking
+  image: 
+  views_count: 0
+
+one:
+  user: one
+  url: https://klubjagiellonski.pl/
+  title: Klub Jagieloński
+  description: NGO
+  image: 
+  views_count: 0
+
+two:
+  user: two
+  url: https://google.com 
+  title: Google
+  description: Search Engine
+  image: 
+  views_count: 0

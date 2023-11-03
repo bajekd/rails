@@ -1,0 +1,20 @@
+<%= render 'posts/post', post: @post %>
+
+<% upvoters = @post.votes_for.up.by_type(User).voters.pluck(:email) %>
+<% downvoters = @post.votes_for.down.by_type(User).voters.pluck(:email) %>
+
+<% if upvoters.count > 0 %>
+  Upvoters: <%= upvoters %>
+<% end %>
+<hr>
+<% if downvoters.count > 0 %>
+  Downvoters: <%= downvoters %>
+<% end %>
+
+<hr>
+
+Comments: <%= @comments.count %>
+<br>
+<%= link_to 'Add comments', new_post_comment_path(@commentable) %>
+<br>
+<%= render @comments %>

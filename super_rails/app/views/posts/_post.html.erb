@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-body">
+    <small><%= premium_label(post.premium) %></small>
+    <h3>
+      <%=
+        link_to_unless_current highlight(
+            post.title,
+            params.dig(:q, :title_or_description_cont)
+        ), post
+      %>
+    </h3>
+    <div class="d-flex">
+      <p class="fst-italic">
+        <%=
+          highlight(
+            post.description,
+            params.dig(
+              :q,
+              :title_or_description_cont
+            )
+          )
+        %>
+      </p>
+    </div>
+    <% if controller_name == 'posts' && action_name == 'show' %>
+      <%= markdown(post.body) %>
+    <% end %>
+  </div>
+  <div class="card-footer">
+    <% if current_user %>
+      <div class="d-flex">
+        <p>
+          <%= render 'posts/upvote_link', post: post %>
+          <%= render 'posts/like_count', post: post %>
+          <%= render 'posts/downvote_link', post: post %>
+        </p>
+      </div>
+      <%= render 'posts/progress', post: post %>
+    <% else %>
+      <div class="d-flex">
+        <p>Like count: <%= render 'posts/like_count', post: post %></p>
+      </div>
+    <% end %>
+    On <%= post.created_at.strftime('%d %b %Y') %>
+    by
+    <%= image_tag post.user.image if post.user.image do %>
+      size: "30x30",
+      class: "rounded-circle d-inline-block align-top"
+    <% end %>
+    <%= link_to post.user.slug, post.user %>
+    <br>
+  </div>
+  <% if current_user == post.user %>
+    <div class="card-footer">
+      <%=
+        link_to 'Edit',
+        edit_post_path(post),
+        class: 'btn btn-sm btn-warning'
+      %>
+      <%=
+        link_to 'Destroy',
+        post,
+        method: :delete,
+        data: { confirm: 'Are you sure?' },
+        class: 'btn btn-sm btn-danger'
+      %>
+    </div>
+  <% end %>
+</div>
+<br>
