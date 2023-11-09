@@ -1,5 +1,8 @@
 class ShortCode
-  ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.freeze
+  lowercase_letters = ('a'..'z').to_a.join
+  uppercase_letters = ('A'..'Z').to_a.join
+  digits = (0..9).to_a.join
+  ALPHABET = "#{digits}#{lowercase_letters}#{uppercase_letters}".freeze # ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.freeze
   BASE = ALPHABET.length
 
   def self.encode(id)
